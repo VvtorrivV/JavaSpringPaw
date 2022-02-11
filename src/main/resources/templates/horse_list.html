@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Horse List</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row head">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <h1 class="display-4">Horse List</h1>
+                        <a class="btn btn-outline-info" role="button" href="add_horse" sec:authorize="isAuthenticated()">Add new Horse</a>
+                        <a class="btn btn-outline-success" role="button" href="menu">Back to menu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <p></p>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <table class="table table-hover table-bordered">
+                    <thead class="">
+                    <tr>
+                        <th scope="col">Horse id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Breed</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Groom</th>
+                        <th scope="col" sec:authorize="isAuthenticated()">Edit</th>
+                        <th scope="col" sec:authorize="isAuthenticated()">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody >
+                    <tr th:each="horse:${lh}">
+                        <th scope="row" th:text="${horse.idh}">Horse id</th>
+                        <td  th:text="${horse.name}">Name</td>
+                        <td  th:text="${horse.breed.breed_name}">Breed</td>
+                        <td  th:text="${horse.gender.gender_name}">Gender</td>
+                        <td  th:text="${horse.age}">Age</td>
+                        <td  th:text="${horse.groom.groom_surname}">Groom</td>
+                        <td sec:authorize="isAuthenticated()">
+                            <a class="btn btn-outline-info" th:href="@{'/edit_horse/'+${horse.idh}}" role="button">Edit Horse</a>
+                        </td>
+                        <td sec:authorize="isAuthenticated()">
+                            <a class="btn btn-outline-danger" role="button" th:href="@{'/delete_horse/'+${horse.idh}}">Delete Horse</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+</body>
+</html>
